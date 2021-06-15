@@ -1,4 +1,3 @@
-import { create } from "domain";
 import React, { useState } from "react";
 import { Button, Form, Segment } from "semantic-ui-react";
 import { Activity } from "../../../Models/activity";
@@ -57,6 +56,7 @@ export default function ActivityForm({
         />
         <Form.Input
           placeholder="Date"
+          type="date"
           value={activity.date}
           onChange={handleInputChange}
           name="date"
