@@ -4,62 +4,25 @@ import { Activity } from "../../../Models/activity";
 import ActivityList from "./ActivityList";
 import Details from "../../details/Details";
 import ActivityForm from "../form/ActivityForm";
-interface Props {
-  activities: Activity[];
-  selectActivity: (activity: Activity) => void;
-  selectedActivity: Activity | undefined;
-  cancelSelectActivity: () => void;
-  editMode: Boolean;
-  openForm: (activity: Activity) => void;
-  closeForm: () => void;
-  createOrEdit: (activity: Activity) => void;
-  deleteActivity: (id: string) => void;
-  submitting: Boolean;
-}
+import { useStore } from "../../../app/stores/store";
+import { observer } from "mobx-react-lite";
 
-export default function ActivityDashboard({
-  activities,
-  selectActivity,
-  selectedActivity,
-  cancelSelectActivity,
-  deleteActivity,
-  editMode,
-  closeForm,
-  openForm,
-  createOrEdit,
-  submitting,
-}: Props) {
-  console.log(selectedActivity);
+function ActivityDashboard() {
+  const { activityStore } = useStore();
+  const { selectedActivity, editMode } = activityStore;
   return (
     <>
       <Grid>
         <Grid.Column width="10">
-          <ActivityList
-            deleteActivity={deleteActivity}
-            activities={activities}
-            selectActivity={selectActivity}
-            submitting={submitting}
-          />
+          <ActivityList />
         </Grid.Column>
         <Grid.Column width="6">
-          {selectedActivity && !editMode && (
-            <Details
-              cancelSelectActivity={cancelSelectActivity}
-              selectActivity={selectActivity}
-              activity={selectedActivity}
-              openForm={openForm}
-            />
-          )}
-          {editMode && (
-            <ActivityForm
-              submitting={submitting}
-              closeForm={closeForm}
-              createOrEdit={createOrEdit}
-              activity={selectedActivity}
-            />
-          )}
+          {selectedActivity && !editMode && <Details />}
+          {editMode && <ActivityForm />}
         </Grid.Column>
       </Grid>
     </>
   );
 }
+
+export default observer(ActivityDashboard);
