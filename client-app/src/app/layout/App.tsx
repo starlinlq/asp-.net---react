@@ -1,21 +1,18 @@
 import "./styles.css";
 import { useState, useEffect } from "react";
 import { Container, Button } from "semantic-ui-react";
-import { Activity } from "../../Models/activity";
-import { NavBar } from "./NavBar";
+import NavBar from "./NavBar";
 import ActivityDashboard from "../../features/activities/dashboard/ActivityDashboard";
-import { v4 as uuid } from "uuid";
-import agent from "../api/agent";
 import LoadingComponent from "./loadingComponent";
-import { act } from "react-dom/test-utils";
 import { useStore } from "../stores/store";
 import { observer } from "mobx-react-lite";
+import { Switch, Route, Link } from "react-router-dom";
+import ActivityForm from "../../features/activities/form/ActivityForm";
+import HomePage from "../../features/home/HomePage";
 
 function App() {
   const { activityStore } = useStore();
   const [submitting, setSubmitting] = useState(false);
-
-
 
   useEffect(() => {
     activityStore.loadActivities();
@@ -27,11 +24,11 @@ function App() {
 
   return (
     <>
-      <NavBar  />
+      <NavBar />
       <Container style={{ marginTop: "7em" }}>
-        <ActivityDashboard
-          
-        />
+        <Route path="/activities" component={ActivityDashboard} />
+        <Route path="/createActivity" component={ActivityForm} />
+        <Route path="/" component={HomePage} />
       </Container>
     </>
   );

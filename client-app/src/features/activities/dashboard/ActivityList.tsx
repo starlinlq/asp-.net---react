@@ -7,7 +7,7 @@ import { observer } from "mobx-react-lite";
 function ActivityList() {
   const [target, setTarget] = useState("");
   const { activityStore } = useStore();
-  const { activities } = activityStore;
+  const { activitiesByDate } = activityStore;
   function handleActivityDelete(
     id: string,
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -20,7 +20,7 @@ function ActivityList() {
     <Segment>
       <Item.Group divided>
         {" "}
-        {activities.map((activity) => (
+        {activitiesByDate.map((activity) => (
           <Item key={activity.id}>
             <Item.Content>
               <Item.Header as="a">{activity.title}</Item.Header>
