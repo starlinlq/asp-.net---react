@@ -26,9 +26,9 @@ function App() {
     <>
       <NavBar />
       <Container style={{ marginTop: "7em" }}>
+        <Route path="/" component={HomePage} />
         <Route path="/activities" component={ActivityDashboard} />
         <Route path="/createActivity" component={ActivityForm} />
-        <Route path="/" component={HomePage} />
       </Container>
     </>
   );
