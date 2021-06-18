@@ -1,28 +1,51 @@
 import { observer } from "mobx-react-lite";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Segment } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import { Activity } from "../../../Models/activity";
+import { useParams, useLocation, useHistory, Link } from "react-router-dom";
+import LoadingComponent from "../../../app/layout/loadingComponent";
+import { v4 as uuid } from "uuid";
 
 function ActivityForm() {
+  const history = useHistory();
+  const [
+    activity = {
+      id: "",
+      title: "",
+      category: "",
+      description: "",
+      date: "",
+      city: "",
+      venue: "",
+    },
+    setActivity,
+  ] = useState<Activity>();
   const { activityStore } = useStore();
-  const { selectedActivity, closeForm, loading: submitting } = activityStore;
-  const initialState = selectedActivity ?? {
-    id: "",
-    title: "",
-    category: "",
-    description: "",
-    date: "",
-    city: "",
-    venue: "",
-  };
-  const [activity, setActivity] = useState(initialState);
+  const { id } = useParams<{ id: string }>();
+  const { loading: submitting } = activityStore;
+
+  useEffect(() => {
+    if (id) {
+      activityStore.loadActivity(id).then((activity) => setActivity(activity!));
+    }
+  }, [id, activityStore.loadActivity]);
 
   const handleSubmit = () => {
-    activity.id
-      ? activityStore.updateActivity(activity)
-      : activityStore.createActivity(activity);
+    if (activity.id.length === 0) {
+      let newActivity = { ...activity, id: uuid() };
+      activityStore.updateActivity(newActivity).then(() => {
+        history.push(`/activities/${newActivity.id}`);
+      });
+    } else {
+      activityStore.createActivity(activity).then(() => {
+        history.push(`/activities/${activity.id}`);
+      });
+    }
   };
+
+  if (activityStore.loadingInitial)
+    return <LoadingComponent content="loading activty..." />;
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -78,11 +101,12 @@ function ActivityForm() {
           content="Submit"
         />
         <Button
+          as={Link}
+          to="/activities"
           floated="right"
           positive
           type="button"
           content="Cancel"
-          onClick={closeForm}
         />
       </Form>
     </Segment>

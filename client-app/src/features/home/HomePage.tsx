@@ -8,8 +8,11 @@ import ActivityForm from "../activities/form/ActivityForm";
 function HomePage() {
   return (
     <>
-      <Container>
+      <Container style={{ marginTop: "7em" }}>
         <h2>home page</h2>
+        <h3>
+          go to <Link to="/activities">Activities</Link>
+        </h3>
       </Container>
     </>
   );
