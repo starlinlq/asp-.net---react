@@ -1,7 +1,7 @@
 import "./styles.css";
 import { Container } from "semantic-ui-react";
 import NavBar from "./NavBar";
-import ActivityDashboard from "../../features/activities/dashboard/ActivityDashboard";
+import ActivityDashboard from "../../features/dashboard/ActivityDashboard";
 import { observer } from "mobx-react-lite";
 import { Route, useLocation } from "react-router-dom";
 import ActivityForm from "../../features/activities/form/ActivityForm";

@@ -1,20 +1,26 @@
 import react from "react";
-import { Switch, Route, Link } from "react-router-dom";
-import { Container } from "semantic-ui-react";
-import ActivityDashboard from "../activities/dashboard/ActivityDashboard";
-import NavBar from "../../app/layout/NavBar";
-import ActivityForm from "../activities/form/ActivityForm";
+import { Link } from "react-router-dom";
+import { Container, Header, Segment, Image, Button } from "semantic-ui-react";
 
 function HomePage() {
   return (
-    <>
-      <Container style={{ marginTop: "7em" }}>
-        <h2>home page</h2>
-        <h3>
-          go to <Link to="/activities">Activities</Link>
-        </h3>
+    <Segment inverted textAlign="center" vertical className="masthead">
+      <Container text>
+        <Header as="h1" inverted>
+          <Image
+            size="massive"
+            src="/assets/logo.png"
+            alt="logo"
+            style={{ marginBottom: 12 }}
+          />
+          Reactivities
+        </Header>
+        <Header as="h2" inverted content="Welcome to Reactivities"></Header>
+        <Button as={Link} to="/activities" size="huge" inverted>
+          take me to the activities
+        </Button>
       </Container>
-    </>
+    </Segment>
   );
 }
 

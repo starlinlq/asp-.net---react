@@ -6,6 +6,7 @@ import App from "./app/layout/App";
 import reportWebVitals from "./reportWebVitals";
 import { StoreContext, store } from "./app/stores/store";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import "react-calendar/dist/Calendar.css";
 
 ReactDOM.render(
   <StoreContext.Provider value={store}>
