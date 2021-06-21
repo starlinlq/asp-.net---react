@@ -1,12 +1,12 @@
 import { observer } from "mobx-react-lite";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Segment, Header } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import { Activity } from "../../../Models/activity";
-import { useParams, useLocation, useHistory, Link } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import LoadingComponent from "../../../app/layout/loadingComponent";
 import { v4 as uuid } from "uuid";
-import { Formik, Form, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import MyTextInput from "../../../app/common/form/MyTextInput";
 import MyTextArea from "../../../app/common/form/MyTextArea";
@@ -36,7 +36,7 @@ function ActivityForm() {
     title: Yup.string().required("the activity title is required"),
     description: Yup.string().required("the activity description is required"),
     category: Yup.string().required(),
-    date: Yup.string().required(),
+    date: Yup.string().required("date is required").nullable(),
     venue: Yup.string().required(),
     city: Yup.string().required(),
   });
